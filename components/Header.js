@@ -1,64 +1,27 @@
-import React,{Component} from 'react';
-import {View,StatusBar,StyleSheet,Image,Pressable} from 'react-native';
+import React from 'react';
+import {View,StatusBar,StyleSheet} from 'react-native';
 import {widthPercentageToDP as wp,heightPercentageToDP as hp} from 'react-native-responsive-screen';
+import ImageHeader from './header/ImageHeader';
 
-export default class Header extends Component{
-    constructor(props){
-        super(props);
-    }
-
-    render(){
-        return(
-            <>
+const Header = ({navigation}) =>{
+        
+    return(
+        <>
             <StatusBar/>
                 <View style={styles.container}>
-                    <View style={styles.containerMenu}>
-                        <Pressable onPress={()=>this.props.navigation.openDrawer()}>
-                            <Image 
-                                source={require('../assets/Recursos/menu-icon.png')} 
-                                style={styles.imagenMenu}
-                            />  
-                        </Pressable>
-                    </View>
+                    <ImageHeader navigation={navigation} type='Menu'/>
                     <View style={styles.containerBar}>
-                        <View style={styles.containerMenu}>
-                            <Pressable onPress={()=>this.props.navigation.navigate('HomeStack')}>
-                                <Image 
-                                    source={require('../assets/Recursos/image-gallery.png')} 
-                                    style={styles.imagenMenu}
-                                />
-                            </Pressable>
-                        </View>
-                        <View style={styles.containerMenu}>
-                            <Pressable onPress={()=>this.props.navigation.navigate('VideoStack')}>
-                                <Image 
-                                    source={require('../assets/Recursos/video-gallery.png')} 
-                                    style={styles.imagenMenu}
-                                />
-                                </Pressable>
-                        </View>
-                        <View style={styles.containerMenu}>
-                            <Pressable onPress={()=>this.props.navigation.navigate('MusicaStack')}>
-                                <Image 
-                                    source={require('../assets/Recursos/music-gallery.png')} 
-                                    style={styles.imagenMenu}
-                                />
-                            </Pressable>
-                        </View>
-                        <View style={styles.containerMenu}>
-                            <Pressable onPress={()=>this.props.navigation.navigate('OtrosStack')}>
-                                <Image 
-                                    source={require('../assets/Recursos/others-gallery.png')} 
-                                    style={styles.imagenMenu}
-                                />
-                            </Pressable>
-                        </View>
+                        <ImageHeader navigation={navigation} stack='HomeStack' type='Image'/>
+                        <ImageHeader navigation={navigation} stack='VideoStack' type='Video'/>
+                        <ImageHeader navigation={navigation} stack='MusicaStack' type='Music'/>
+                        <ImageHeader navigation={navigation} stack='OtrosStack' type='Others'/>
                     </View>
                 </View>
             </>
-        );
-    }
+    );
 }
+
+export default Header;
 
 const styles = StyleSheet.create({
     container:{
@@ -66,14 +29,6 @@ const styles = StyleSheet.create({
         width:  wp('100%'),
         backgroundColor: '#DDA0DD',
         flexDirection: 'row',
-    },
-    imagenMenu:{
-        height: hp('7%'),
-        width: wp('12%'),
-        resizeMode:'cover'
-    },
-    containerMenu:{
-        marginLeft: wp('3%'),
     },
     containerBar:{
         flexDirection:'row',
