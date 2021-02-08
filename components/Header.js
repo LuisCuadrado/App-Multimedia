@@ -22,28 +22,36 @@ export default class Header extends Component{
                     </View>
                     <View style={styles.containerBar}>
                         <View style={styles.containerMenu}>
+                            <Pressable onPress={()=>this.props.navigation.navigate('HomeStack')}>
                                 <Image 
                                     source={require('../assets/Recursos/image-gallery.png')} 
                                     style={styles.imagenMenu}
                                 />
+                            </Pressable>
                         </View>
                         <View style={styles.containerMenu}>
+                            <Pressable onPress={()=>this.props.navigation.navigate('VideoStack')}>
                                 <Image 
                                     source={require('../assets/Recursos/video-gallery.png')} 
                                     style={styles.imagenMenu}
                                 />
+                                </Pressable>
                         </View>
                         <View style={styles.containerMenu}>
+                            <Pressable onPress={()=>this.props.navigation.navigate('MusicaStack')}>
                                 <Image 
                                     source={require('../assets/Recursos/music-gallery.png')} 
                                     style={styles.imagenMenu}
                                 />
+                            </Pressable>
                         </View>
                         <View style={styles.containerMenu}>
+                            <Pressable onPress={()=>this.props.navigation.navigate('OtrosStack')}>
                                 <Image 
                                     source={require('../assets/Recursos/others-gallery.png')} 
                                     style={styles.imagenMenu}
                                 />
+                            </Pressable>
                         </View>
                     </View>
                 </View>
