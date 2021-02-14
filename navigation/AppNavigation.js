@@ -8,6 +8,7 @@ import ImageScreen from '../screens/ImageScreen';
 import VideoScreen from '../screens/VideoScreen';
 import MusicScreen from '../screens/MusicScreen';
 import OthersScreen from '../screens/OthersScreen';
+import DetallesScreen from '../screens/DetallesScreen';
 /*Componentes*/
 import Header from '../components/Header';
 import Menu from '../components/Menu';
@@ -20,6 +21,15 @@ const HomeStack = () =>{
             <Stack.Screen
                 name='Home'
                 component={ImageScreen}
+                options={{
+                    header: ({navigation})=>{
+                        return <Header navigation={navigation}/>
+                    }
+                }}
+            />
+            <Stack.Screen
+                name='Detalles'
+                component={DetallesScreen}
                 options={{
                     header: ({navigation})=>{
                         return <Header navigation={navigation}/>

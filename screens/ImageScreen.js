@@ -1,9 +1,9 @@
 import React, {useState,useEffect} from 'react';
-import { StyleSheet, Text, View,Image,FlatList, ActivityIndicator} from 'react-native';
+import { StyleSheet, Text, View,Image,FlatList, ActivityIndicator,Pressable} from 'react-native';
 import * as MediaLibrary from 'expo-media-library';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 
-export default function App() {
+export default function ImageScreen({navigation}) {
 
   const [dataImages, setDataImages] = useState({});
   const [imagenes, setImagenes] = useState([]);
@@ -38,7 +38,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Text style={{fontFamily:'serif',color:'#DA70D6'}}>{` Imagenes: ${dataImages.totalCount}`}</Text>
+      <Text style={{fontFamily:'serif',color:'black'}}>{` Imagenes: ${dataImages.totalCount}`}</Text>
       <FlatList
         showsVerticalScrollIndicator={false}
         data={imagenes}
@@ -59,11 +59,13 @@ export default function App() {
           </View>
         }
         renderItem={({item}) =>(
+          <Pressable onPress={()=>navigation.push('Detalles',{data:item})}>
             <Image
               style={styles.image}
               resizeMode='contain'
               source={{ uri: item.uri }}
             />
+          </Pressable>
         )
         
         }
@@ -75,7 +77,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#E6E6FA'
+    backgroundColor: 'white'
   },
   image:{
     width: wp('40%'),
