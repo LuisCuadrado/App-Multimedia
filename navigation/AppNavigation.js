@@ -53,6 +53,15 @@ const VideoStack = () =>{
                     }
                 }}
             />
+            <StackVideo.Screen
+                name='Detalles'
+                component={DetallesScreen}
+                options={{
+                    header: ({navigation})=>{
+                        return <Header navigation={navigation}/>
+                    }
+                }}
+            />
         </StackVideo.Navigator>
     );
 }
