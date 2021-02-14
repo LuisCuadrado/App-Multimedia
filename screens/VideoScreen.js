@@ -1,20 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import ListMedia from '../components/ListMedia';
 
-export default function App() {
+export default function VideoScreen({navigation}) {
   return (
-    <View style={styles.container}>
-      <Text>Aquí deberian ir los videos</Text>
-    </View>
+    <ListMedia navigation={navigation} type='video'/>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
