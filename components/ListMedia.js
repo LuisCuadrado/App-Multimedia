@@ -16,13 +16,18 @@ const ListMedia = ({navigation,type}) => {
   const getMedia = async () =>{
     const options ={
       first: 30,
-      mediaType: type=='imagen'?
+      mediaType:  type=='imagen'?
                     [MediaLibrary.MediaType.photo]:
-                    [MediaLibrary.MediaType.video]
+                  type=='video'?
+                    [MediaLibrary.MediaType.video]:
+                  type=='musica'?
+                    [MediaLibrary.MediaType.audio]:
+                    [MediaLibrary.MediaType.unknown]
                 ,
       sortBy: [[ MediaLibrary.SortBy.creationTime, false ]]
     }
     let results = await MediaLibrary.getAssetsAsync(options);
+    console.log(results);
     setDataMedia(results);
     setMedia(results.assets);
   }
@@ -39,6 +44,14 @@ const ListMedia = ({navigation,type}) => {
       const options ={
         first: 30,
         after: dataMedia.endCursor,
+        mediaType:  type=='imagen'?
+                    [MediaLibrary.MediaType.photo]:
+                  type=='video'?
+                    [MediaLibrary.MediaType.video]:
+                  type=='musica'?
+                    [MediaLibrary.MediaType.audio]:
+                    [MediaLibrary.MediaType.unknown]
+                ,
         sortBy: [[ MediaLibrary.SortBy.creationTime, false ]]
       }
       let results = await MediaLibrary.getAssetsAsync(options);
@@ -80,6 +93,7 @@ const ListMedia = ({navigation,type}) => {
                 source={{ uri: item.uri }}
               />
               :
+              type=='video'?
               <>
               <Image
                 style={styles.video}
@@ -87,7 +101,34 @@ const ListMedia = ({navigation,type}) => {
                 source={{ uri: item.uri }}
               />
               <View style={styles.bottomVideo}>
-                <Text style={{fontWeight:'bold',fontSize:hp('3%'),fontFamily:'serif',color:'#4B0082'}}>{convierteTiempo(item.duration)}</Text>
+                <Text style={{fontWeight:'bold',fontSize:hp('3%'),fontFamily:'serif',color:'#4B0082'}}>{convierteTiempo(item.duration)+'s'}</Text>
+              </View>
+              </>
+              :
+              type=='musica'?
+              <>
+              <View style={{borderWidth: hp('0.2%'),borderColor:'#BA55D3', borderTopLeftRadius:hp('2%'),borderTopRightRadius:hp('2%'),alignItems:'center'}}>
+              <Image
+                style={styles.musica}
+                resizeMode='contain'
+                source={require('../assets/Recursos/music.png')}
+              />
+              </View>
+              <View style={styles.bottomVideo}>
+                <Text numberOfLines={1} style={{fontWeight:'bold',fontSize:hp('3%'),fontFamily:'serif',color:'#4B0082'}}>{item.filename}</Text>
+              </View>
+              </>
+              :
+              <>
+              <View style={{borderWidth: hp('0.2%'),borderColor:'#BA55D3', borderTopLeftRadius:hp('2%'),borderTopRightRadius:hp('2%'),alignItems:'center'}}>
+              <Image
+                style={styles.musica}
+                resizeMode='contain'
+                source={require('../assets/Recursos/folder.png')}
+              />
+              </View>
+              <View style={styles.bottomVideo}>
+                <Text numberOfLines={1} style={{fontWeight:'bold',fontSize:hp('3%'),fontFamily:'serif',color:'#4B0082'}}>{item.filename}</Text>
               </View>
               </>
             }
@@ -129,5 +170,10 @@ const styles = StyleSheet.create({
     borderColor:'#BA55D3',
     backgroundColor: '#E6E6FA',
     alignItems:'center'
+  },
+  musica:{
+    width: wp('20%'),
+    height: hp('20%'),
+    borderRadius: hp('2%')
   }
 });
