@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 /*Screens*/
 import ImageScreen from '../screens/ImageScreen';
@@ -10,123 +10,107 @@ import MusicScreen from '../screens/MusicScreen';
 import OthersScreen from '../screens/OthersScreen';
 import DetallesScreen from '../screens/DetallesScreen';
 /*Componentes*/
-import Header from '../components/Header';
-import Menu from '../components/Menu';
-import { widthPercentageToDP } from 'react-native-responsive-screen';
+import ImageHeader from '../components/header/ImageHeader';
 
 const Stack = createStackNavigator();
-const HomeStack = () =>{
+const ImagenesStack = () =>{
     return(
-        <Stack.Navigator initatialRouteName="Home">
+        <Stack.Navigator initatialRouteName="Imagen">
             <Stack.Screen
-                name='Home'
+                name='Imagen'
                 component={ImageScreen}
-                options={{
-                    header: ({navigation})=>{
-                        return <Header navigation={navigation}/>
-                    }
-                }}
+                options={{header: ()=> null}}
             />
             <Stack.Screen
                 name='Detalles'
                 component={DetallesScreen}
-                options={{
-                    header: ({navigation})=>{
-                        return <Header navigation={navigation}/>
-                    }
-                }}
+                options={{header: ()=> null}}
             />
         </Stack.Navigator>
     );
 }
 
-const StackVideo = createStackNavigator();
 const VideoStack = () =>{
     return(
-        <StackVideo.Navigator initatialRouteName="Video">
-            <StackVideo.Screen
+        <Stack.Navigator initatialRouteName="Video">
+            <Stack.Screen
                 name='Video'
                 component={VideoScreen}
-                options={{
-                    header: ({navigation})=>{
-                        return <Header navigation={navigation}/>
-                    }
-                }}
+                options={{header: ()=> null}}
             />
-            <StackVideo.Screen
+            <Stack.Screen
                 name='Detalles'
                 component={DetallesScreen}
-                options={{
-                    header: ({navigation})=>{
-                        return <Header navigation={navigation}/>
-                    }
-                }}
+                options={{header: ()=> null}}
             />
-        </StackVideo.Navigator>
+        </Stack.Navigator>
     );
 }
 
-const StackMusic = createStackNavigator();
 const MusicaStack = () =>{
     return(
-        <StackMusic.Navigator initatialRouteName="Music">
-            <StackMusic.Screen
+        <Stack.Navigator initatialRouteName="Music">
+            <Stack.Screen
                 name='Music'
                 component={MusicScreen}
-                options={{
-                    header: ({navigation})=>{
-                        return <Header navigation={navigation}/>
-                    }
-                }}
+                options={{header: ()=> null}}
             />
-        </StackMusic.Navigator>
+            <Stack.Screen
+                name='Detalles'
+                component={DetallesScreen}
+                options={{header: ()=> null}}
+            />
+        </Stack.Navigator>
     );
 }
 
-const StackOthers = createStackNavigator();
 const OtrosStack = () =>{
     return(
-        <StackOthers.Navigator initatialRouteName="Others">
-            <StackOthers.Screen
+        <Stack.Navigator initatialRouteName="Others">
+            <Stack.Screen
                 name='Others'
                 component={OthersScreen}
-                options={{
-                    header: ({navigation})=>{
-                        return <Header navigation={navigation}/>
-                    }
-                }}
+                options={{header: ()=> null}}
             />
-        </StackOthers.Navigator>
+            <Stack.Screen
+                name='Detalles'
+                component={DetallesScreen}
+                options={{header: ()=> null}}
+            />
+        </Stack.Navigator>
     );
 }
-
-const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 const AppNavigation = () =>{
     return(
         <NavigationContainer>
-            <Drawer.Navigator 
-                initialRouteName="HomeStack" 
-                drawerType='slide' 
-                drawerContent={({navigation})=><Menu navigation={navigation}/>}
-                drawerStyle={{width: widthPercentageToDP('80%')}}
+            <Tab.Navigator
+                initialRouteName = 'Imagenes'
+                tabBarOptions={{activeTintColor: 'white',inactiveTintColor:'black', style: {backgroundColor:'#DDA0DD'} }}
+                screenOptions={({ route }) => ({
+                    tabBarIcon: ({ focused }) => {
+                        let iconName;
+                        if(route.name === 'Imagenes') 
+                            iconName = focused? require('../assets/Recursos/image-gallery.png'):
+                                                require('../assets/Recursos/image-gallery-ns.png');
+                        else if (route.name === 'Video')
+                            iconName = focused? require('../assets/Recursos/video-gallery.png'):
+                                                require('../assets/Recursos/video-gallery-ns.png');
+                        else if (route.name === 'Musica')
+                            iconName = focused? require('../assets/Recursos/music-gallery.png'):
+                                                require('../assets/Recursos/music-gallery-ns.png');
+                        else if (route.name === 'Otros')
+                            iconName = focused? require('../assets/Recursos/others-gallery.png'):
+                                                require('../assets/Recursos/others-gallery-ns.png');
+                      return <ImageHeader type={iconName}/>;
+                    },
+                  })}
             >
-                <Drawer.Screen
-                    name="HomeStack"
-                    component={HomeStack}
-                />
-                <Drawer.Screen
-                    name="VideoStack"
-                    component={VideoStack}
-                />
-                <Drawer.Screen
-                    name="MusicaStack"
-                    component={MusicaStack}
-                />
-                <Drawer.Screen
-                    name="OtrosStack"
-                    component={OtrosStack}
-                />
-            </Drawer.Navigator>
+                <Tab.Screen name="Imagenes" component={ImagenesStack}/>
+                <Tab.Screen name="Video"    component={VideoStack} />
+                <Tab.Screen name="Musica"   component={MusicaStack} />
+                <Tab.Screen name="Otros"    component={OtrosStack} />
+            </Tab.Navigator>
         </NavigationContainer>
     );
 }
