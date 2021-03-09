@@ -19,7 +19,7 @@ const VideoCard = ({data})=>{
                 source={{ uri: data.uri }}
             />
             <View style={styles.bottomVideo}>
-                <Text style={styles.text}>{convierteTiempo(data.duration)+'s'}</Text>
+                <Text style={styles.text}>{convierteTiempo(data.duration)}</Text>
             </View>
         </>
     );
