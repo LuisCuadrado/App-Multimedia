@@ -79,7 +79,7 @@ const ListMedia = ({navigation,type}) => {
           </View>
         }
         renderItem={({item}) =>(
-          <Pressable onPress={()=>navigation.push('Detalles',{data:item})}>
+          <Pressable onPress={()=>navigation.push('Detalles',{ data: item, type: type})}>
             {
               type=='imagen'?<ImageCard data={item}/>:
               type=='video'?<VideoCard data={item}/>:
